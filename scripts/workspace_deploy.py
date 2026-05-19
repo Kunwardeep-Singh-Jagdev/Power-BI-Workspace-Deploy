@@ -24,7 +24,7 @@ def main():
         'client_secret': os.environ['CLIENT_SECRET']
     }
 
-    resp = requests.get('https://login.microsoftonline.com/{}/oauth2/token'.format(tenant_id), data=data)
+    resp = requests.get(f'https://login.microsoftonline.com/{tenant_id}/oauth2/token', data=data)
     access_token = resp.json()['access_token']
     token = {
         'Authorization': 'Bearer {}'.format(access_token)
@@ -33,7 +33,7 @@ def main():
     file_list = sys.argv[1].split(separator)
 
     for file in file_list:
-        if file.endswith('.pbix') and os.path.exists(file):
+        if file.endswith('.pbip') and os.path.exists(file):
             path = Path(file)
             workspace = os.path.basename(path.parent.absolute())
             file_name = os.path.basename(file)
